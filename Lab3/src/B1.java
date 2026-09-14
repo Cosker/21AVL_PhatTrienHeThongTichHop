@@ -1,4 +1,4 @@
-package Lab3;
+package Lab3.src;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

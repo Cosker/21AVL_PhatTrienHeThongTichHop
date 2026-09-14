@@ -1,4 +1,4 @@
-package Lab3;
+package Lab3.src;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -8,7 +8,7 @@ import java.nio.file.Path;
 
 public class B2 {
     public static void main(String[] args) {
-        Path file = Path.of("data", "ghi_chu_B2.txt");
+        Path file = Path.of("..", "data", "ghi_chu_B2.txt");
 
         try {
             Files.createDirectories(file.getParent());

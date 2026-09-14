@@ -1,4 +1,4 @@
-package Lab3;
+package Lab3.src;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -9,7 +9,7 @@ import java.nio.file.StandardOpenOption;
 
 public class B3 {
     public static void main(String[] args) {
-        Path file = Path.of("data", "ghi_chu_B3.txt");
+        Path file = Path.of("..", "data", "ghi_chu_B3.txt");
 
         try {
             Files.createDirectories(file.getParent());
