@@ -1,0 +1,4 @@
+=== BÁO CÁO TỒN KHO ===
+Tổng số sản phẩm hợp lệ: 5
+Tổng giá trị tồn kho: 109,998,900 VND
+Sản phẩm có giá trị lớn nhất: iPhone 18 (99,000,000 VND)
