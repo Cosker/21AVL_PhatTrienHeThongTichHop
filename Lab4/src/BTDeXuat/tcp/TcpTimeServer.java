@@ -12,16 +12,21 @@ public class TcpTimeServer {
         DateTimeFormatter dateTimeFmt = DateTimeFormatter.ofPattern("dd MM yyyy HH mm ss");
 
         try (ServerSocket serverSocket = new ServerSocket(6000)) {
+            System.out.println("Server đang lắng nghe tại cổng 6000. Đang chờ Client kết nối...");
             while (true) {
-                try (Socket socket = serverSocket.accept();
-                        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
-                        PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"),
-                                true)) {
+                try {
+                    Socket socket = serverSocket.accept();
+                    System.out.println("Có Client mới kết nối từ IP: " + socket.getInetAddress().getHostAddress());
+
+                    BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+                    PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
 
                     String request;
                     while ((request = in.readLine()) != null) {
                         request = request.trim().toUpperCase();
                         if (request.equals("QUIT")) {
+                            System.out.println(
+                                    "Client " + socket.getInetAddress().getHostAddress() + " đã ngắt kết nối.");
                             break;
                         }
 

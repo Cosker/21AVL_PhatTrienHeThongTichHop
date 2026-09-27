@@ -12,14 +12,25 @@ public class UdpTimeServer {
         DateTimeFormatter dateTimeFmt = DateTimeFormatter.ofPattern("dd MM yyyy HH mm ss");
 
         try (DatagramSocket socket = new DatagramSocket(6001)) {
+            System.out.println("Server UDP đang lắng nghe tại cổng 6001. Đang chờ yêu cầu từ Client...");
+
             byte[] receiveBuffer = new byte[1024];
 
             while (true) {
                 DatagramPacket receivePacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
                 socket.receive(receivePacket);
 
+                // Lấy thông tin IP và Cổng của Client vừa gửi gói tin
+                String clientIP = receivePacket.getAddress().getHostAddress();
+                int clientPort = receivePacket.getPort();
+
                 String request = new String(receivePacket.getData(), 0, receivePacket.getLength(), "UTF-8").trim()
                         .toUpperCase();
+
+                // Lệnh thông báo khi nhận được dữ liệu từ Client
+                System.out.println("Nhận yêu cầu ['" + request + "'] từ Client " + clientIP +
+                        ":" + clientPort);
+
                 LocalDateTime now = LocalDateTime.now();
                 String response = "ERR INVALID_COMMAND";
 

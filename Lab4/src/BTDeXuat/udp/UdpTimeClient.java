@@ -18,6 +18,7 @@ public class UdpTimeClient {
                 String cmd = scanner.nextLine();
 
                 if (cmd.equalsIgnoreCase("QUIT")) {
+                    System.out.println("Đã kết thúc dịch vụ ngày giờ UDP!");
                     break;
                 }
 

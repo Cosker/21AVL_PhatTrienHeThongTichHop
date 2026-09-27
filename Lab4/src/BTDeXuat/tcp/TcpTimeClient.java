@@ -17,6 +17,7 @@ public class TcpTimeClient {
                 out.println(cmd);
 
                 if (cmd.equalsIgnoreCase("QUIT")) {
+                    System.out.println("Đã kết thúc dịch vụ ngày giờ TCP!");
                     break;
                 }
                 System.out.println("Server: " + in.readLine());
