@@ -7,9 +7,9 @@ import java.time.format.DateTimeFormatter;
 
 public class TcpTimeServer {
     public static void main(String[] args) {
-        DateTimeFormatter dateFmt = DateTimeFormatter.ofPattern("dd MM yyyy");
-        DateTimeFormatter timeFmt = DateTimeFormatter.ofPattern("HH mm ss");
-        DateTimeFormatter dateTimeFmt = DateTimeFormatter.ofPattern("dd MM yyyy HH mm ss");
+        DateTimeFormatter dateFmt = DateTimeFormatter.ofPattern("dd - MM - yyyy");
+        DateTimeFormatter timeFmt = DateTimeFormatter.ofPattern("HH : mm : ss");
+        DateTimeFormatter dateTimeFmt = DateTimeFormatter.ofPattern("dd - MM - yyyy, HH : mm : ss");
 
         try (ServerSocket serverSocket = new ServerSocket(6000)) {
             System.out.println("Server đang lắng nghe tại cổng 6000. Đang chờ Client kết nối...");
