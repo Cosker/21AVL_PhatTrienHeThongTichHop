@@ -5,25 +5,26 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
 
-// Client cũng implements AuctionCallback để nhận thông báo
 public class AuctionClient extends UnicastRemoteObject implements AuctionCallback {
 
+    // Constructor bắt buộc
     protected AuctionClient() throws RemoteException {
         super();
     }
 
-    // Hàm này sẽ được Server gọi từ xa mỗi khi có người đấu giá
+    // Hàm này sẽ bị Server gọi từ xa và tự động chạy trên màn hình của Client
     @Override
     public void notifyUpdate(String message) throws RemoteException {
         System.out.println("\n\n" + message);
-        System.out.print("Chọn chức năng: "); // In lại menu prompt cho người dùng đỡ bỡ ngỡ
+        System.out.print("Chọn chức năng: "); // In lại prompt menu để giao diện không bị rối
     }
 
     public static void main(String[] args) {
         try {
+            // 1. Tìm hệ thống đấu giá trên mạng
             AuctionInterface auctionService = (AuctionInterface) Naming.lookup("rmi://localhost/AuctionService");
 
-            // Khởi tạo Client và đăng ký nhận thông báo với Server
+            // 2. Khởi tạo bản thân Client và đăng ký nhận thông báo với Server
             AuctionClient client = new AuctionClient();
             auctionService.subscribe(client);
 
@@ -40,7 +41,7 @@ public class AuctionClient extends UnicastRemoteObject implements AuctionCallbac
                 System.out.println("0. Thoát");
                 System.out.print("Chọn chức năng: ");
                 choice = scanner.nextInt();
-                scanner.nextLine();
+                scanner.nextLine(); // Loại bỏ enter thừa
 
                 switch (choice) {
                     case 1:
@@ -78,8 +79,11 @@ public class AuctionClient extends UnicastRemoteObject implements AuctionCallbac
             } while (choice != 0);
 
             scanner.close();
-            System.exit(0); // Phải gọi lệnh này để ngắt tiến trình nhận thông báo (UnicastRemoteObject)
+            // Lệnh này bắt buộc phải gọi để ngắt kết nối mạng lắng nghe
+            // (UnicastRemoteObject) của Client
+            System.exit(0);
         } catch (Exception e) {
+            System.err.println("Lỗi Client: " + e.toString());
             e.printStackTrace();
         }
     }

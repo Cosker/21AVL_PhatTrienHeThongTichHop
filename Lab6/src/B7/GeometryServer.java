@@ -1,40 +1,19 @@
 package Lab6.src.B7;
 
 import java.rmi.Naming;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.rmi.registry.LocateRegistry;
 
-public class GeometryServer extends UnicastRemoteObject implements GeometryInterface {
-
-    protected GeometryServer() throws RemoteException {
-        super();
-    }
-
-    @Override
-    public double rectangleArea(double width, double height) throws RemoteException {
-        System.out.println("[Log] Tính diện tích hình chữ nhật: " + width + " x " + height);
-        return width * height;
-    }
-
-    @Override
-    public double circleArea(double radius) throws RemoteException {
-        System.out.println("[Log] Tính diện tích hình tròn, bán kính: " + radius);
-        return Math.PI * radius * radius;
-    }
-
-    @Override
-    public double triangleArea(double base, double height) throws RemoteException {
-        System.out.println("[Log] Tính diện tích hình tam giác: đáy " + base + ", cao " + height);
-        return 0.5 * base * height;
-    }
-
+public class GeometryServer {
     public static void main(String[] args) {
         try {
+            // 1. Mở RMI Registry
             LocateRegistry.createRegistry(1099);
 
-            GeometryServer server = new GeometryServer();
-            Naming.rebind("rmi://localhost:1099/GeometryService", server);
+            // 2. Khởi tạo đối tượng chứa thuật toán toán học
+            GeometryImpl geometryImpl = new GeometryImpl();
+
+            // 3. Đăng ký đối tượng lên mạng với tên "GeometryService"
+            Naming.rebind("rmi://localhost:1099/GeometryService", geometryImpl);
 
             System.out.println("Geometry Server đang chạy và chờ yêu cầu tính toán...");
         } catch (Exception e) {
